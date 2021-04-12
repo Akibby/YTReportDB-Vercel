@@ -1,0 +1,39 @@
+{
+  "name": "ytreportdb-vercel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-link-http": "^1.5.17",
+    "apollo-server-micro": "^2.22.2",
+    "faunadb": "^4.1.1",
+    "get-video-id": "^3.2.0",
+    "graphql": "^14.7.0",
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "@josefaidt/eslint-config": "^0.1.17",
+    "eslint": "^7.24.0",
+    "prettier": "^2.2.1",
+    "vercel": "^21.3.3"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "bracketSpacing": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "arrowParens": "avoid",
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "extends": "@josefaidt/eslint-config"
+  }
+}
