@@ -14,6 +14,17 @@ export async function addVideo(videoId) {
   return videoRef
 }
 
+export async function addClient(clientid) {
+  const data = {
+    name: clientid,
+    valid: true,
+  }
+
+  const doc = await client.query(Create(Collection('users'), { data }))
+  const userRef = await client.query(Call(Fn('getUser'), username))
+  return true
+}
+
 export async function addUser(username) {
   const data = {
     name: username,
