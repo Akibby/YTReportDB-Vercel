@@ -2,6 +2,7 @@ import { query } from 'faunadb'
 import getVideoId from 'get-video-id'
 import { client } from './_client'
 import { addUser, addVideo } from './_support'
+import { authenticate } from './_withAuth'
 
 const { Create, Collection, Call, Function: Fn } = query
 
@@ -22,12 +23,17 @@ export default async function (req, res) {
 
   console.log('💃 Video Ref is ', videoById)
   console.log('🙂 User Ref is ', userByName)
-  const data = {
-    video: videoById,
-    user: userByName,
-    status: req.body.status,
+  if (authenticate(req.body.user)) 
+    {const data = {
+      video: videoById,
+      user: userByName,
+      status: req.body.status,
+    }
+    console.log(data)
+    const doc = await client.query(Create(Collection('reports'), { data }))
+    res.status(200).json({ doc })
+  } else {
+    res.status(401)
   }
-  console.log(data)
-  const doc = await client.query(Create(Collection('reports'), { data }))
-  res.status(200).json({ doc })
+  
 }

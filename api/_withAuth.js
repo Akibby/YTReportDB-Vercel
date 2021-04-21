@@ -11,9 +11,10 @@ function authenticate(clientid) {
 }
 
 const withAuth = handlerFn => (req, res) => {
-  try { authenticate(req.body.clientid) }
-  catch(error) { return res.status(401) }
-  return handlerFn(req, res)
+  try { 
+    let valid = authenticate(req.body.clientid) 
+    return valid;
+  } catch(error) { return res.status(401) }
 }
 
 export default withAuth
