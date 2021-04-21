@@ -29,8 +29,8 @@ export async function addClient(clientid) {
   };
 
   const doc = await client.query(Create(Collection('users'), { data }));
-  const userRef = await client.query(Call(Fn('getUser'), username));
-  return true;
+  const validity = await client.query(Call(Fn('getValidity'), clientid));
+  return validity;
 }
 
 export async function addUser(username) {
@@ -42,14 +42,16 @@ export async function addUser(username) {
 
   const doc = await client.query(Create(Collection('users'), { data }));
   const userRef = await client.query(Call(Fn('getUser'), username));
-  console.log(userRef);
   return userRef;
 }
 
 export async function authenticate(clientid) {
   const validity = await client
-    .query(Paginate(Match(Index('validity_by_name'))))
-    .catch(() => addUser(clientid));
-  console.log('The status of Client:', clientid, ' is ', validity);
+    .query(Call(Fn('getValidity'), clientid))
+    .catch(() => {
+      addClient(clientid);
+      console.log('Something went wrong');
+    });
+  console.log('Status of Client', clientid, 'is', validity);
   return validity;
 }

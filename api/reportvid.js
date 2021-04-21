@@ -25,7 +25,8 @@ export default async function (req, res) {
 
   console.log('💃 Video Ref is ', videoById);
   console.log('🙂 User Ref is ', userByName);
-  if (authenticate(req.body.user)) {
+  const hasAuth = await authenticate(req.body.user);
+  if (hasAuth) {
     const data = {
       video: videoById,
       user: userByName,
@@ -35,6 +36,6 @@ export default async function (req, res) {
     const doc = await client.query(Create(Collection('reports'), { data }));
     res.status(200).json({ doc });
   } else {
-    res.status(401);
+    res.status(401).close;
   }
 }
