@@ -34,8 +34,8 @@ export default async function (req, res) {
     };
     console.log(data);
     const doc = await client.query(Create(Collection('reports'), { data }));
-    res.status(200).json({ doc });
+    res.status(200).json({ doc }).end();
   } else {
-    res.status(401).close;
+    res.status(401).end();
   }
 }
