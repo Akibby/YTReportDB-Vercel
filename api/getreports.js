@@ -18,7 +18,7 @@ export default async function (req, res) {
       Paginate(Match(Index('reports_of_video'), Call(Fn('getVideo'), id)))
     );
   } catch (error) {
-    res.status(500).send(error).end();
+    res.status(404).send(error).end();
   } finally {
     res.status(200).send(docs).end();
   }
