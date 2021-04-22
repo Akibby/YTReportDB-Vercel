@@ -18,7 +18,6 @@ export async function addVideo(videoId) {
 
   const doc = await client.query(Create(Collection('videos'), { data }));
   const videoRef = await client.query(Call(Fn('getVideo'), videoId));
-  console.log(videoRef);
   return videoRef;
 }
 
@@ -50,8 +49,6 @@ export async function authenticate(clientid) {
     .query(Call(Fn('getValidity'), clientid))
     .catch(() => {
       addClient(clientid);
-      console.log('Something went wrong');
     });
-  console.log('Status of Client', clientid, 'is', validity);
   return validity;
 }

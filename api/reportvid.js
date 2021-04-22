@@ -12,7 +12,6 @@ export default async function (req, res) {
     return;
   }
   console.log(req.body);
-  console.log(req.body.user);
   const { id } = getVideoId(req.body.video);
 
   const videoById = await client
@@ -23,9 +22,15 @@ export default async function (req, res) {
     .query(Call(Fn('getUser'), req.body.user))
     .catch(() => addUser(req.body.user));
 
-  console.log('💃 Video Ref is ', videoById);
-  console.log('🙂 User Ref is ', userByName);
   const hasAuth = await authenticate(req.body.user);
+  console.log(
+    'Video ref',
+    videoById,
+    'user ref',
+    userByName,
+    'user status',
+    hasAuth
+  );
   if (hasAuth) {
     const data = {
       video: videoById,
