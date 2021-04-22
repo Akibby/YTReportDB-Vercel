@@ -11,9 +11,16 @@ export default async function (req, res) {
     res.status(200).end();
     return;
   }
-  console.log('video:', req.body.video);
-  console.log('status:', req.body.status);
-  console.log('user:', req.body.user);
+  console.log(
+    'payload',
+    'Video:',
+    req.body.video,
+    '\nStatus:',
+    req.body.status,
+    '\nUser:',
+    req.body.user,
+    '\n'
+  );
   const { id } = getVideoId(req.body.video);
 
   const videoById = await client
@@ -43,6 +50,7 @@ export default async function (req, res) {
     const doc = await client.query(Create(Collection('reports'), { data }));
     res.status(200).json({ doc }).end();
   } else {
+    console.log(req.body.user, 'is banned');
     res.status(401).end();
   }
 }
