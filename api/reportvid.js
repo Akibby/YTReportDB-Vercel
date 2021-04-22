@@ -11,7 +11,9 @@ export default async function (req, res) {
     res.status(200).end();
     return;
   }
-  console.log(req.body);
+  console.log('video:', req.body.video);
+  console.log('status:', req.body.status);
+  console.log('user:', req.body.user);
   const { id } = getVideoId(req.body.video);
 
   const videoById = await client
@@ -24,11 +26,11 @@ export default async function (req, res) {
 
   const hasAuth = await authenticate(req.body.user);
   console.log(
-    'Video ref',
+    'Video Ref:',
     videoById,
-    'user ref',
+    '\nUser Ref:',
     userByName,
-    'user status',
+    '\nUser Status:',
     hasAuth
   );
   if (hasAuth) {
